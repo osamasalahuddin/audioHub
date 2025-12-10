@@ -1,0 +1,101 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "name": "ESP-IDF Components",
+            "path": "../../esp-idf/components/"
+        }
+    ],
+    "settings": {
+         "files.exclude": {
+            "build": true
+        },
+        "C_Cpp.default.compileCommands": [
+            "${workspaceFolder}/build/compile_commands.json",
+        ],
+        "cmake.automaticReconfigure": false
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Build Task",
+                "command": ". ~/projects/esp/esp-idf/export.sh && idf.py build",
+                "type": "shell",
+                "args": [],
+                "problemMatcher": [
+                    "$tsc"
+                ],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": {
+                    "kind": "build",
+                },
+            },
+            {
+                "label": "Build and Flash",
+                "command": ". ~/projects/esp/esp-idf/export.sh && idf.py build && idf.py -p /dev/ttyUSB0 flash",
+                "type": "shell",
+                "args": [],
+                "problemMatcher": [
+                    "$tsc"
+                ],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+            },
+            {
+                "label": "Set Target ESP32 and Build",
+                "command": ". ~/projects/esp/esp-idf/export.sh && idf.py set-target esp32 && idf.py build",
+                "type": "shell",
+                "args": [],
+                "problemMatcher": [
+                    "$tsc"
+                ],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": {
+                    "kind": "build",
+                },
+            },
+            {
+                "label": "MenuConfig",
+                "command": ". ~/projects/esp/esp-idf/export.sh && idf.py menuconfig",
+                "type": "shell",
+                "args": [],
+                "problemMatcher": [
+                    "$tsc"
+                ],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": {
+                    "kind": "configuration",
+                },
+            },
+            {
+                "label": "Monitor",
+                "command": ". ~/projects/esp/esp-idf/export.sh && idf.py monitor",
+                "type": "shell",
+                "args": [],
+                "problemMatcher": [
+                    "$tsc"
+                ],
+                "presentation": {
+                    "reveal": "always"
+                },
+                "group": {
+                    "kind": "configuration",
+                },
+            }
+        ]
+    }
+}
