@@ -11,6 +11,9 @@
 #include <inttypes.h>
 #include "esp_log.h"
 
+#include "udp_audio.h"
+#include "tcp_audio.h"
+
 #include "bt_app_core.h"
 #include "bt_app_av.h"
 #include "esp_bt_main.h"
@@ -606,6 +609,26 @@ void bt_app_a2d_cb(esp_a2d_cb_event_t event, esp_a2d_cb_param_t *param)
 void bt_app_a2d_data_cb(const uint8_t *data, uint32_t len)
 {
     write_ringbuf(data, len);
+
+    /* Send audio via UDP/Raw socket */
+    if (s_audio_state == ESP_A2D_AUDIO_STATE_STARTED) {
+
+        /* Send via TCP only if connected */
+        if (tcp_audio_is_connected()) {
+            /* Can send larger chunks with TCP */
+            tcp_send_audio(data, len);
+        }
+        else
+        {
+            tcp_reconnect();
+        }
+
+        // const uint32_t chunk_size = 1400;
+        // for (uint32_t offset = 0; offset < len; offset += chunk_size) {
+        //     uint32_t send_len = (len - offset) > chunk_size ? chunk_size : (len - offset);
+        //     udp_send_audio(data + offset, send_len);
+        // }
+    }
 
     /* log the number every 100 packets */
     if (++s_pkt_cnt % 100 == 0) {

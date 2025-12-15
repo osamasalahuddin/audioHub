@@ -3,6 +3,8 @@
 #include "freertos/task.h"
 #include "nvs.h"
 #include "nvs_flash.h"
+#include "udp_audio.h"
+#include "tcp_audio.h"
 
 void bt_main(void);
 void ap_main(void);
@@ -23,4 +25,10 @@ void app_main(void)
 
     /* Start the Bluetooth A2DP Sink */
     bt_main();
+
+    /* Initialize UDP audio */
+    udp_audio_init("192.168.4.2", 12345);
+
+    /* Initialize TCP audio */
+    // tcp_audio_init("192.168.4.2", 12345);
 }

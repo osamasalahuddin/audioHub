@@ -15,7 +15,9 @@
         "C_Cpp.default.compileCommands": [
             "${workspaceFolder}/build/compile_commands.json",
         ],
-        "cmake.automaticReconfigure": false
+        "cmake.automaticReconfigure": false,
+        "cmake.configureOnEdit": false,
+        "cmake.configureOnOpen": false
     },
     "tasks": {
         "version": "2.0.0",
@@ -37,7 +39,7 @@
             },
             {
                 "label": "Build and Flash",
-                "command": ". ~/projects/esp/esp-idf/export.sh && idf.py build && idf.py -p /dev/ttyUSB0 flash",
+                "command": ". ~/projects/esp/esp-idf/export.sh && idf.py build && idf.py -p /dev/ttyUSB1 flash",
                 "type": "shell",
                 "args": [],
                 "problemMatcher": [
