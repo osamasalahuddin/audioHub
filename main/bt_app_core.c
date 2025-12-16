@@ -200,17 +200,46 @@ void bt_app_task_shut_down(void)
 
 void bt_i2s_task_start_up(void)
 {
-    ESP_LOGI(BT_APP_CORE_TAG, "ringbuffer data empty! mode changed: RINGBUFFER_MODE_PREFETCHING");
-    ringbuffer_mode = RINGBUFFER_MODE_PREFETCHING;
-    if ((s_i2s_write_semaphore = xSemaphoreCreateBinary()) == NULL) {
-        ESP_LOGE(BT_APP_CORE_TAG, "%s, Semaphore create failed", __func__);
-        return;
-    }
-    if ((s_ringbuf_i2s = xRingbufferCreate(RINGBUF_HIGHEST_WATER_LEVEL, RINGBUF_TYPE_BYTEBUF)) == NULL) {
-        ESP_LOGE(BT_APP_CORE_TAG, "%s, ringbuffer create failed", __func__);
-        return;
-    }
-    xTaskCreate(bt_i2s_task_handler, "BtI2STask", 2048, NULL, configMAX_PRIORITIES - 3, &s_bt_i2s_task_handle);
+    // ESP_LOGI(BT_APP_CORE_TAG, "Free heap before ringbuffer: %lu bytes",
+    //          esp_get_free_heap_size());
+    // ESP_LOGI(BT_APP_CORE_TAG, "Minimum free heap ever: %lu bytes",
+    //          esp_get_minimum_free_heap_size());
+
+    // ESP_LOGI(BT_APP_CORE_TAG, "ringbuffer data empty! mode changed: RINGBUFFER_MODE_PREFETCHING");
+    // ringbuffer_mode = RINGBUFFER_MODE_PREFETCHING;
+
+    // if ((s_i2s_write_semaphore = xSemaphoreCreateBinary()) == NULL) {
+    //     ESP_LOGE(BT_APP_CORE_TAG, "%s, Semaphore create failed", __func__);
+    //     return;
+    // }
+
+    // if ((s_ringbuf_i2s = xRingbufferCreate(RINGBUF_HIGHEST_WATER_LEVEL, RINGBUF_TYPE_BYTEBUF)) == NULL) {
+    //     ESP_LOGE(BT_APP_CORE_TAG, "%s, ringbuffer create failed (need %d bytes, have %lu)",
+    //              __func__, RINGBUF_HIGHEST_WATER_LEVEL, esp_get_free_heap_size());
+    //     return;
+    // }
+
+    // ESP_LOGI(BT_APP_CORE_TAG, "Free heap after ringbuffer: %lu bytes",
+    //          esp_get_free_heap_size());
+
+    // xTaskCreate(bt_i2s_task_handler, "BtI2STask", 2048, NULL, configMAX_PRIORITIES - 3, &s_bt_i2s_task_handle);
+
+
+
+
+
+
+    // ESP_LOGI(BT_APP_CORE_TAG, "ringbuffer data empty! mode changed: RINGBUFFER_MODE_PREFETCHING");
+    // ringbuffer_mode = RINGBUFFER_MODE_PREFETCHING;
+    // if ((s_i2s_write_semaphore = xSemaphoreCreateBinary()) == NULL) {
+    //     ESP_LOGE(BT_APP_CORE_TAG, "%s, Semaphore create failed", __func__);
+    //     return;
+    // }
+    // if ((s_ringbuf_i2s = xRingbufferCreate(RINGBUF_HIGHEST_WATER_LEVEL, RINGBUF_TYPE_BYTEBUF)) == NULL) {
+    //     ESP_LOGE(BT_APP_CORE_TAG, "%s, ringbuffer create failed", __func__);
+    //     return;
+    // }
+    // xTaskCreate(bt_i2s_task_handler, "BtI2STask", 2048, NULL, configMAX_PRIORITIES - 3, &s_bt_i2s_task_handle);
 }
 
 void bt_i2s_task_shut_down(void)

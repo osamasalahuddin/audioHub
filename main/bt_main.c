@@ -228,7 +228,11 @@ void bt_main(void)
         return;
     }
 
-#if (CONFIG_EXAMPLE_A2DP_SINK_SSP_ENABLED == true)
+
+    /* Disable sleep modes during connection */
+    esp_bt_sleep_disable();
+
+    #if (CONFIG_EXAMPLE_A2DP_SINK_SSP_ENABLED == true)
     /* set default parameters for Secure Simple Pairing */
     esp_bt_sp_param_t param_type = ESP_BT_SP_IOCAP_MODE;
     esp_bt_io_cap_t iocap = ESP_BT_IO_CAP_IO;

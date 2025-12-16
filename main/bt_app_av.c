@@ -608,32 +608,20 @@ void bt_app_a2d_cb(esp_a2d_cb_event_t event, esp_a2d_cb_param_t *param)
 
 void bt_app_a2d_data_cb(const uint8_t *data, uint32_t len)
 {
-    write_ringbuf(data, len);
+    // write_ringbuf(data, len);
 
-    /* Send audio via UDP/Raw socket */
-    if (s_audio_state == ESP_A2D_AUDIO_STATE_STARTED) {
-
-        /* Send via TCP only if connected */
-        if (tcp_audio_is_connected()) {
-            /* Can send larger chunks with TCP */
-            tcp_send_audio(data, len);
-        }
-        else
-        {
-            tcp_reconnect();
-        }
-
-        // const uint32_t chunk_size = 1400;
-        // for (uint32_t offset = 0; offset < len; offset += chunk_size) {
-        //     uint32_t send_len = (len - offset) > chunk_size ? chunk_size : (len - offset);
-        //     udp_send_audio(data + offset, send_len);
-        // }
+    /* Queue audio data for UDP transmission (non-blocking) */
+    if (s_audio_state == ESP_A2D_AUDIO_STATE_STARTED)
+    {
+        udp_queue_audio_data(data, len);
     }
 
     /* log the number every 100 packets */
-    if (++s_pkt_cnt % 100 == 0) {
+    if (++s_pkt_cnt % 100 == 0)
+    {
         ESP_LOGI(BT_AV_TAG, "Audio packet count: %"PRIu32, s_pkt_cnt);
     }
+
 }
 
 void bt_app_rc_ct_cb(esp_avrc_ct_cb_event_t event, esp_avrc_ct_cb_param_t *param)
