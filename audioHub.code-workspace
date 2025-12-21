@@ -39,7 +39,8 @@
             },
             {
                 "label": "Build and Flash",
-                "command": ". ~/projects/esp/esp-idf/export.sh && idf.py build && idf.py -p /dev/ttyUSB1 flash",
+                "command": ". ~/projects/esp/esp-idf/export.sh && idf.py build && idf.py -p /dev/ttyUSB1 flash && idf.py -p /dev/ttyUSB1 monitor",
+                // "command": ". ~/projects/esp/esp-idf/export.sh && idf.py build && idf.py -p /dev/ttyUSB0 flash && idf.py -p /dev/ttyUSB0 monitor",
                 "type": "shell",
                 "args": [],
                 "problemMatcher": [

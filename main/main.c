@@ -27,7 +27,7 @@ void app_main(void)
     bt_main();
 
     /* Initialize UDP audio */
-    udp_audio_init("192.168.4.2", 12345, 12346);
+    udp_audio_init("192.168.4.2", 12345, "192.168.4.9", 12346);
 
     /* Start UDP transmission task */
     udp_audio_task_start();

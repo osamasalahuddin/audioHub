@@ -6,7 +6,8 @@
 #include "esp_err.h"
 
 /* Initialize UDP audio transmission with dual ports for stereo */
-esp_err_t udp_audio_init(const char *dest_ip, uint16_t left_port, uint16_t right_port);
+esp_err_t udp_audio_init(const char *dest_ip_left, uint16_t left_port,
+                         const char *dest_ip_right, uint16_t right_port);
 
 /* Queue stereo audio data for processing (called from BT callback) */
 esp_err_t udp_queue_audio_data(const uint8_t *data, uint32_t len);
