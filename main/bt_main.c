@@ -228,9 +228,16 @@ void bt_main(void)
         return;
     }
 
-
-    /* Disable sleep modes during connection */
+    /* Disable all Bluetooth sleep modes to prevent disconnections */
     esp_bt_sleep_disable();
+
+    /* Disable sniff mode specifically */
+    // esp_bt_gap_set_sniff_subrating(0, 0, 0);
+
+    /* Set longer supervision timeout for stable connections */
+    // esp_bt_gap_set_link_supervision_timeout(0x7FFF);
+
+    ESP_LOGI(BT_AV_TAG, "Bluetooth sleep modes disabled for stable connection");
 
     #if (CONFIG_EXAMPLE_A2DP_SINK_SSP_ENABLED == true)
     /* set default parameters for Secure Simple Pairing */

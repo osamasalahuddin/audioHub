@@ -301,13 +301,13 @@ static void bt_av_hdl_a2d_evt(uint16_t event, void *p_param)
             s_a2d_conn_state_str[a2d->conn_stat.state], bda[0], bda[1], bda[2], bda[3], bda[4], bda[5]);
         if (a2d->conn_stat.state == ESP_A2D_CONNECTION_STATE_DISCONNECTED) {
             esp_bt_gap_set_scan_mode(ESP_BT_CONNECTABLE, ESP_BT_GENERAL_DISCOVERABLE);
-            bt_i2s_driver_uninstall();
-            bt_i2s_task_shut_down();
+            // bt_i2s_driver_uninstall();
+            // bt_i2s_task_shut_down();
         } else if (a2d->conn_stat.state == ESP_A2D_CONNECTION_STATE_CONNECTED){
             esp_bt_gap_set_scan_mode(ESP_BT_NON_CONNECTABLE, ESP_BT_NON_DISCOVERABLE);
-            bt_i2s_task_start_up();
+            // bt_i2s_task_start_up();
         } else if (a2d->conn_stat.state == ESP_A2D_CONNECTION_STATE_CONNECTING) {
-            bt_i2s_driver_install();
+            // bt_i2s_driver_install();
         }
         break;
     }
@@ -358,12 +358,12 @@ static void bt_av_hdl_a2d_evt(uint16_t event, void *p_param)
             /* Enable the continuous channels */
             dac_continuous_enable(tx_chan);
         #else
-            i2s_channel_disable(tx_chan);
-            i2s_std_clk_config_t clk_cfg = I2S_STD_CLK_DEFAULT_CONFIG(sample_rate);
-            i2s_std_slot_config_t slot_cfg = I2S_STD_MSB_SLOT_DEFAULT_CONFIG(I2S_DATA_BIT_WIDTH_16BIT, ch_count);
-            i2s_channel_reconfig_std_clock(tx_chan, &clk_cfg);
-            i2s_channel_reconfig_std_slot(tx_chan, &slot_cfg);
-            i2s_channel_enable(tx_chan);
+            // i2s_channel_disable(tx_chan);
+            // i2s_std_clk_config_t clk_cfg = I2S_STD_CLK_DEFAULT_CONFIG(sample_rate);
+            // i2s_std_slot_config_t slot_cfg = I2S_STD_MSB_SLOT_DEFAULT_CONFIG(I2S_DATA_BIT_WIDTH_16BIT, ch_count);
+            // i2s_channel_reconfig_std_clock(tx_chan, &clk_cfg);
+            // i2s_channel_reconfig_std_slot(tx_chan, &slot_cfg);
+            // i2s_channel_enable(tx_chan);
         #endif
             ESP_LOGI(BT_AV_TAG, "Configure audio player: %x-%x-%x-%x",
                      a2d->audio_cfg.mcc.cie.sbc[0],
